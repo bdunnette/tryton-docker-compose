@@ -33,24 +33,11 @@ docker compose run --rm server trytond_import_postal_codes -c /etc/trytond.conf 
 ### Backup database
 
 ```bash
-podman-compose exec postgres sh -c "pg_dump -U postgres tryton > tryton-demo.sql"
-podman cp tryton_postgres_1:tryton-demo.sql .
-```
-
-or, using `pg_dump` format:
-
-```bash
 podman-compose exec postgres sh -c "pg_dump -U postgres -Fc tryton > tryton-demo.dump"
 podman cp tryton_postgres_1:tryton-demo.dump .
 ```
 
 ## Restore database
-
-```bash
-podman-compose exec postgres sh -c "psql -U postgres tryton < tryton-demo.sql"
-```
-
-if using `pg_dump` format:
 
 ```bash
 podman-compose exec postgres sh -c "pg_restore -U postgres -d tryton tryton-demo.dump"
