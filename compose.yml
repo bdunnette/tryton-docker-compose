@@ -1,6 +1,6 @@
 services:
   server:
-    image: tryton/tryton:${VERSION:-latest}
+    image: tryton/tryton:${TRYTON_VERSION:-latest}
     environment:
       - DB_PASSWORD=${DB_PASSWORD:-password}
     ports:
@@ -12,13 +12,13 @@ services:
       - -c
       - |
         (until echo > /dev/tcp/$${DB_HOSTNAME:=$${POSTGRES_PORT_5432_TCP_ADDR:='postgres'}}/$${DB_PORT:=$${POSTGRES_PORT_5432_TCP_PORT:='5432'}}; do sleep 0.5; done) 2>/dev/null
-        echo "${PASSWORD:-admin}" > /tmp/.passwd
-        TRYTONPASSFILE=/tmp/.passwd /entrypoint.sh trytond-admin -d "${DB_NAME:-tryton}" --all --email "${EMAIL:-admin}" -vv
+        echo "${ADMIN_PASSWORD:-admin}" > /tmp/.passwd
+        TRYTONPASSFILE=/tmp/.passwd /entrypoint.sh trytond-admin -d "${DB_NAME:-tryton}" --all --email "${ADMIN_EMAIL:-admin}" -vv
         if command -v uwsgi &>/dev/null; then uwsgi --ini /etc/uwsgi.conf; else gunicorn --config=/etc/gunicorn.conf.py; fi
     depends_on:
       - postgres
   cron:
-    image: tryton/tryton:${VERSION:-latest}
+    image: tryton/tryton:${TRYTON_VERSION:-latest}
     environment:
       - DB_PASSWORD=${DB_PASSWORD:-password}
     volumes:
