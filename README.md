@@ -6,9 +6,12 @@ Quickly set up a [Tryton](https://www.tryton.org/) server using [Docker Compose]
 
 1. Copy example.env to .env
 2. Edit variables in .env 
-   + [VERSION](https://github.com/bdunnette/tryton-docker-compose/blob/bf5165935343b611336a8ea1652d6a0a40271d56/example.env#L1) sets Tryton server version (add `-office` after version number to enable reports in other formats like PDF)
-   + [PG_VERSION](https://github.com/bdunnette/tryton-docker-compose/blob/bf5165935343b611336a8ea1652d6a0a40271d56/example.env#L2) sets Postgres database version
-   + [PASSWORD](https://github.com/bdunnette/tryton-docker-compose/blob/bf5165935343b611336a8ea1652d6a0a40271d56/example.env#L4) is the default password for the `admin` user
+   + **TRYTON_VERSION** is the Tryton version to use (default: 7.0 - add '-office' to allow exporting of reports to non-OpenDocument formats like PDF)
+   + **PG_VERSION** is the PostgreSQL version to use (default: 17.x)
+   + **ADMIN_EMAIL** is the email for the 'admin' user (default: admin@example.com)
+   + **ADMIN_PASSWORD** is the initial password for the 'admin' Tryton user (default: admin)
+   + **DB_PASSWORD** is the PostgreSQL database password (default: change_this_please)
+
 3. Start the server with `docker compose up` or `podman-compose up`
 
 ## Managing containers 
